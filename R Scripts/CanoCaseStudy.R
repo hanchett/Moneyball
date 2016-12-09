@@ -109,15 +109,16 @@ Frequency <- test_data$value
 Legend <- factor(combined$Type)
 
 #Creating barplots with labels
+theme_set(theme_grey(base_size= 12, face='bold'))
 CanoPlot <-ggplot(combined, aes(x=Outcomes, y=Frequency, fill=Legend)) + geom_bar(stat="identity", position = position_dodge())
 LabeledPlot <- CanoPlot + labs(title="Results of Pitches to Cano", x="Result of pitch", y="Frequency of Result", color="Legend")  
 LabeledPlot <- CanoPlot + labs(title="Results of Pitches to Cano", x="Result of pitch", y="Frequency of Result", color="Legend")  
+LabeledPlot <- LabeledPlot + theme(axis.text=element_text(size=16, face='bold', angle=90), axis.title=element_text(size=16, face='bold'), legend.text=element_text(size=16))
 LabeledPlot
-
 #Adding error bars to plot 
 errDF1 <- aes(ymax = combined$value + standardError, ymin= combined$value - standardError)
 #errDF2 <- aes(ymax = df2 + standardError, ymin=df2 - standardError)
-PlotWithError <- LabeledPlot + geom_errorbar(errDF1, width=0.3, color='Black', position=position_dodge(0.85)) #+  geom_errorbar(errDF2, width=0.1, color='Black')
+PlotWithError <- LabeledPlot + geom_errorbar(errDF1, width=0.3, color='Black', position=position_dodge(0.85)) 
 PlotWithError
 
 
