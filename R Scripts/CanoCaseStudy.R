@@ -33,17 +33,11 @@ TotalEventsByGame <- sqldf('SELECT pitch_id, count(pitch_id) as numPitches, tcd.
 
 #Goes through all calls and calculates standard error for good calls
 SE <- c()
-SE2 <- c()
 for (f in CombinedFreq$Freq) {
   SE <- c(SE, f)
 }
-for(f in CombinedFreq$BadCallFreq) {
-  SE2 <- c(SE2, f)
-}
 stdev <- sd(SE)
-stdev2 <- sd(SE2)
 standardErrorAll <- stdev / sqrt(length(CombinedFreq$Freq))
-standardErrorMissed <- stdev2 / sqrt(length(CombinedFreq$BadCallFreq))
 
 xlabels <- CombinedFreq$events
 
@@ -121,9 +115,9 @@ LabeledPlot <- CanoPlot + labs(title="Results of Pitches to Cano", x="Result of 
 LabeledPlot
 
 #Adding error bars to plot 
-errDF1 <- aes(ymax = df1 + standardError, ymin=df1 - standardError)
-errDF2 <- aes(ymax = df2 + standardError, ymin=df2 - standardError)
-PlotWithError <- LabeledPlot + geom_errorbar(errDF1, width=0.1, color='Black') +  geom_errorbar(errDF2, width=0.1, color='Black')
+errDF1 <- aes(ymax = combined$value + standardError, ymin= combined$value - standardError)
+#errDF2 <- aes(ymax = df2 + standardError, ymin=df2 - standardError)
+PlotWithError <- LabeledPlot + geom_errorbar(errDF1, width=0.3, color='Black', position=position_dodge(0.85)) #+  geom_errorbar(errDF2, width=0.1, color='Black')
 PlotWithError
 
 
