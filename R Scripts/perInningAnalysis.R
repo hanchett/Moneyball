@@ -14,8 +14,8 @@ fullData <- rbind(data2016, data2015, data2014, data2013)
 
 #By inning analysis
 #test if data is normal
-hist(filteredData$inning, main = "Histogram of Innings where Missed Calls Occur")
-hist(log10(filteredData$inning, main = "Histogram of Log10(Innings where Missed Calls Occur)")) #answer: data is not normal, use Wilcox test
+hist(fullData$inning, main = "Histogram of Innings where Missed Calls Occur")
+hist(log10(fullData$inning), main = "Histogram of Log10(Innings where Missed Calls Occur)") #answer: data is not normal, use Wilcox test
 
 #Group data by inning segment and inning number, do it for top only group, bot only group, and combined group
 countByInningAll <- sqldf("SELECT inning, inning_topbot, COUNT(*) as numPerInningSegment 
